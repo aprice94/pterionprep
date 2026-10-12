@@ -1,6 +1,6 @@
 # AGENTS.md — Neurosurgery Case Prep Guide
 
-Neurosurgical case-preparation knowledge base (107 case guides + operative-approach chapters), published as a GitHub Pages site. **This folder is the project root** (`/Users/anthonyprice/Documents/Neurosurgery Case Prep Guide`).
+Neurosurgical case-preparation knowledge base (107 case guides + operative-approach chapters), published as a GitHub Pages site. **This folder is the project root** (`/Users/anthonyprice/Documents/Pterion Prep/site`).
 
 ## Layout
 - `INDEX.md` — homepage (`permalink: /`): filterable bullet-list landing with hero + category cards.
@@ -17,8 +17,8 @@ Neurosurgical case-preparation knowledge base (107 case guides + operative-appro
 - **kramdown tables need a BLANK LINE before them**, or they render as raw `|` pipes on the Pages site.
 
 ## GitHub Pages
-- Live: https://aprice94.github.io/neurosurgery-case-prep-guide/ (custom theme, kramdown `input: GFM`, `baseurl: /neurosurgery-case-prep-guide`).
-- After pushing, verify the build: `gh api repos/aprice94/neurosurgery-case-prep-guide/pages/builds/latest --jq '.status'` and confirm `.commit` == HEAD before trusting `curl` checks (stale-build race).
+- Live: https://pterionprep.com/ (custom theme, kramdown `input: GFM`, `baseurl: ""` (custom domain)).
+- After pushing, verify the build: `gh api repos/aprice94/pterionprep/pages/builds/latest --jq '.status'` and confirm `.commit` == HEAD before trusting `curl` checks (stale-build race).
 - `gh` CLI is at `/opt/homebrew/bin/gh`. Network ops (push, gh api) need the sandbox disabled.
 
 ## Working style

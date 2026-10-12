@@ -1,6 +1,6 @@
 # Pterion Prep
 
-### 🌐 Live website → **https://aprice94.github.io/neurosurgery-case-prep-guide/**
+### 🌐 Live website → **https://pterionprep.com/**
 *Browse all 107 guides + approach chapters with search, figures, and clean navigation. (Repo "About" panel also links it on the right →)*
 
 A structured, self-contained neurosurgical case-preparation knowledge base: **107 procedure guides + system references + a 100-resource database + a master template**, covering the major cranial, skull-base, spinal, endovascular, stereotactic/ablative, peripheral-nerve, and pediatric operations.
