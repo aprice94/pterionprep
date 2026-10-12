@@ -6,6 +6,7 @@ Neurosurgical case-preparation knowledge base (107 case guides + operative-appro
 - `INDEX.md` — homepage (`permalink: /`): filterable bullet-list landing with hero + category cards.
 - `cases/<category>/*.md` — 18 categories of case guides (one-liner, HPI, imaging, exam, surgical planning, dictation-ready op note, post-op).
 - `cases/approaches/*.md` — 18 detailed operative-approach chapters at full "Atlas" depth, plus an approach-selection decision aid and section index.
+- `shunts/` — **Shunts tab** (header + homepage card): `index.md` primer, `valves.html` library, `converter.html` pressure converter, `xray-id.html` X-ray gallery. All valve data lives in `_data/shunt_valves.yml` (mmH2O; every value from a manufacturer IFU/brochure or FDA record, sources per valve) — edit the YAML, not the pages. Converter math: `assets/js/shunt-engine.js` (pure, node-testable) + `shunt-converter.js` (UI). `.html` pages need an explicit `permalink:` (trailing-slash URLs 404 otherwise).
 - `figures/` — only public-domain (Gray/Sobotta) + CC-BY images are stored; all credited in `figures/CREDITS.md`.
 - Custom Jekyll theme: `_config.yml`, `_layouts/default.html`, `assets/css/style.scss`.
 
