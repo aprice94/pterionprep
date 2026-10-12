@@ -1,0 +1,157 @@
+---
+permalink: /shunts/valves/
+title: "Shunt Valve Library — Settings, Pressures, MRI & X-ray"
+description: "Every shunt valve setting in mmH2O, cmH2O and mmHg, with tolerances, MRI behaviour, X-ray identification and manufacturer sources — Codman/Integra, Medtronic, Sophysa, Miethke."
+category: "Shunts"
+tags: ["shunt", "valve", "programmable", "Strata", "Hakim", "Certas", "Polaris", "Sophy", "proGAV", "M.blue", "MRI"]
+---
+{%- assign MMHG = 0.0735559 -%}
+<h1>Shunt Valve Library</h1>
+
+<div class="tool-hero compact">
+  <div>
+    <span class="eyebrow">Shunts · Library</span>
+    <h2>Every valve, every setting — in mmH₂O, cmH₂O and mmHg</h2>
+    <p>Settings, tolerances, MRI rules, X-ray identification, adjustment tools and recalls for {{ site.data.shunt_valves | size }} valves and add-on devices — each value transcribed from the manufacturer's instructions for use, brochure or FDA record linked on the card.</p>
+  </div>
+  <div class="tool-stat-grid">
+    <a href="{{ '/shunts/converter/' | relative_url }}"><b>🔁 Converter</b><span>Find the equivalent setting on another valve</span></a>
+    <a href="{{ '/shunts/' | relative_url }}"><b>📘 How valves work</b><span>Start here if the physics is rusty</span></a>
+    <a href="{{ '/shunts/xray-id/' | relative_url }}"><b>🩻 Identify by X-ray</b><span>Radiographic gallery</span></a>
+  </div>
+</div>
+
+<div class="sv-filters" role="search">
+  <input id="sv-q" type="search" placeholder="Filter valves (e.g., Strata, Sophysa, gravitational)…" aria-label="Filter valves">
+  <button class="sv-chip" data-kind="" aria-pressed="true">All</button>
+  <button class="sv-chip" data-kind="programmable" aria-pressed="false">Programmable</button>
+  <button class="sv-chip" data-kind="fixed" aria-pressed="false">Fixed</button>
+  <button class="sv-chip" data-kind="addon" aria-pressed="false">Add-on devices</button>
+  <button class="sv-chip" data-kind="flow" aria-pressed="false">Flow-regulated</button>
+</div>
+
+<p class="sv-small">Jump to: {% for v in site.data.shunt_valves %}<a href="#{{ v.id }}">{{ v.name }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}</p>
+
+<p class="sv-small"><b>Conversions used:</b> cmH₂O = mmH₂O ÷ 10 · mmHg = mmH₂O × 0.0736 (1 mmHg = 13.6 mmH₂O). Medtronic publishes ranges at 5 → 50 mL/h; the nominal value shown is the range midpoint (the value Medtronic's StrataVarius displays).</p>
+
+{% for v in site.data.shunt_valves %}
+{%- case v.kind -%}{%- when "programmable" -%}{%- assign klabel = "Programmable" -%}{%- when "fixed" -%}{%- assign klabel = "Fixed" -%}{%- when "addon" -%}{%- assign klabel = "Add-on device" -%}{%- else -%}{%- assign klabel = "Flow-regulated" -%}{%- endcase -%}
+{%- case v.mri.level -%}{%- when "ok" -%}{%- assign mtxt = "MRI: no setting change" -%}{%- when "check" -%}{%- assign mtxt = "MRI-resistant — still confirm" -%}{%- when "high" -%}{%- assign mtxt = "MRI may change the setting" -%}{%- else -%}{%- assign mtxt = "No setting to change" -%}{%- endcase -%}
+<article class="sv-card sv-kind-c-{{ v.kind }}" id="{{ v.id }}" data-kind="{{ v.kind }}" data-text="{{ v.name | downcase | escape }} {{ v.full_name | downcase | escape }} {{ v.maker | downcase | escape }} {{ v.summary | downcase | escape }} {{ klabel | downcase }}">
+  <div class="sv-card-head">
+    <h3 class="sv-card-title">{{ v.name }}</h3>
+    <span class="sv-kind sv-kind-{{ v.kind }}">{{ klabel }}</span>
+    <span class="sv-pill sv-mri-{{ v.mri.level }}" title="{{ v.mri.label | escape }}">{{ mtxt }}</span>
+    {%- if v.convertible and v.addon != true -%} <a class="sv-pill sv-mri-none" href="{{ '/shunts/converter/' | relative_url }}#m=valve&s={{ v.id }}&t=all&po=lying">Convert ↗</a>{%- endif %}
+  </div>
+  <p class="sv-card-sub">{{ v.full_name }} · {{ v.maker }} · {{ v.status }}</p>
+  <div class="sv-card-body">
+    <figure class="sv-xray">
+      {%- if v.xray.img -%}
+      <img src="{{ '/figures/shunts/' | append: v.xray.img | relative_url }}" alt="Radiograph of a {{ v.full_name | escape }}" loading="lazy">
+      <figcaption>{%- include shunt-credit.html key=v.xray.credit -%}</figcaption>
+      {%- if v.xray.more -%}
+      <img src="{{ '/figures/shunts/' | append: v.xray.more | relative_url }}" alt="More radiograph examples of a {{ v.full_name | escape }}" loading="lazy" style="margin-top:8px">
+      <figcaption>{%- include shunt-credit.html key=v.xray.more_credit -%}</figcaption>
+      {%- endif -%}
+      {%- else -%}
+      <div class="sv-noimg">No openly licensed radiograph available yet.{% if v.xray.ext %}<br><a href="{{ v.xray.ext.u }}" target="_blank" rel="noopener">{{ v.xray.ext.t }} ↗</a>{% endif %}</div>
+      {%- endif -%}
+    </figure>
+    <div>
+      <p>{{ v.summary }}</p>
+      <table class="sv-facts">
+        <tr><th>Mechanism</th><td>{{ v.mechanism }}</td></tr>
+        {%- if v.range_text %}<tr><th>Range</th><td>{{ v.range_text }}</td></tr>{% endif %}
+        {%- if v.measured and v.measured != "—" %}<tr><th>Measured as</th><td>{{ v.measured }}</td></tr>{% endif %}
+        {%- if v.tolerance and v.tolerance != "—" %}<tr><th>Tolerance</th><td>{{ v.tolerance }}</td></tr>{% endif %}
+        <tr><th>MRI</th><td>{{ v.mri.label }}{% if v.mri.after and v.mri.after != "—" %} — {{ v.mri.after }}{% endif %}</td></tr>
+        {%- if v.xray.features %}<tr><th>X-ray ID</th><td><ul style="margin:0;padding-left:1.1em">{% for f in v.xray.features %}<li>{{ f }}</li>{% endfor %}</ul></td></tr>{% endif %}
+        {%- if v.adjust %}<tr><th>Adjustment</th><td>{{ v.adjust }}</td></tr>{% endif %}
+        {%- if v.not_convertible_reason %}<tr><th>Converter</th><td>Not convertible — {{ v.not_convertible_reason }}</td></tr>{% endif %}
+      </table>
+
+      {%- if v.settings %}
+      {%- assign has_up = v.settings | where_exp: "s", "s.up" | size -%}
+      {%- assign has_rng = v.settings | where_exp: "s", "s.lo" | size -%}
+      {%- assign has_tol = v.settings | where_exp: "s", "s.tol" | size -%}
+      {%- assign has_sys = v.settings | where_exp: "s", "s.sys" | size -%}
+      <div class="decision-table-wrap"><table class="sv-settings">
+        <thead><tr><th>Setting</th>{% if v.addon %}<th>Adds upright</th><th>mmHg</th>{% else %}<th>{% if has_up > 0 %}Lying {% endif %}mmH₂O</th><th>cmH₂O</th><th>mmHg</th>{% if has_rng > 0 %}<th>Range (mmH₂O)</th>{% endif %}{% if has_up > 0 %}<th>Upright mmH₂O</th><th>Upright mmHg</th>{% endif %}{% endif %}{% if has_tol > 0 %}<th>Tolerance</th>{% endif %}{% if has_sys > 0 %}<th>With 120 cm catheter @20 mL/h</th>{% endif %}</tr></thead>
+        <tbody>
+        {%- for s in v.settings %}
+          <tr><td><b>{{ s.s }}</b>{% if s.note %}<br><span class="sv-muted">{{ s.note }}</span>{% endif %}</td>
+          {%- if v.addon -%}
+            <td>+{{ s.up }} mmH₂O ({{ s.up | divided_by: 10.0 | round: 1 }} cmH₂O)</td><td>+{{ s.up | times: MMHG | round: 1 }}</td>
+          {%- else -%}
+            <td>{% if s.min %}≥{% endif %}{{ s.p }}</td><td>{{ s.p | divided_by: 10.0 | round: 1 }}</td><td>{{ s.p | times: MMHG | round: 1 }}</td>
+            {%- if has_rng > 0 %}<td>{% if s.lo %}{{ s.lo }}–{{ s.hi }}{% endif %}</td>{% endif -%}
+            {%- if has_up > 0 %}<td>{% if s.up %}{{ s.up }}{% if s.up_lo %} <span class="sv-muted">({{ s.up_lo }}–{{ s.up_hi }})</span>{% endif %}{% endif %}</td><td>{% if s.up %}{{ s.up | times: MMHG | round: 1 }}{% endif %}</td>{% endif -%}
+          {%- endif -%}
+          {%- if has_tol > 0 %}<td>{% if s.tol %}±{{ s.tol }}{% endif %}</td>{% endif -%}
+          {%- if has_sys > 0 %}<td>{{ s.sys }}</td>{% endif -%}
+          </tr>
+        {%- endfor %}
+        </tbody>
+      </table></div>
+      {%- endif %}
+
+      {%- if v.variants %}
+      {%- for va in v.variants %}
+      {%- assign vup = va.settings | where_exp: "s", "s.up" | size -%}
+      <details{% if forloop.index == 2 %} open{% endif %}><summary>{{ va.label }}</summary>
+        <div class="decision-table-wrap"><table class="sv-settings">
+          <thead><tr><th>Position</th><th>{% if vup > 0 %}Lying {% endif %}mmH₂O</th><th>cmH₂O</th><th>mmHg</th>{% if vup > 0 %}<th>Upright mmH₂O</th><th>Upright mmHg</th>{% endif %}</tr></thead>
+          <tbody>{% for s in va.settings %}<tr><td><b>{{ s.s }}</b></td><td>{{ s.p }}</td><td>{{ s.p | divided_by: 10.0 | round: 1 }}</td><td>{{ s.p | times: MMHG | round: 1 }}</td>{% if vup > 0 %}<td>{{ s.up }}</td><td>{{ s.up | times: MMHG | round: 1 }}</td>{% endif %}</tr>{% endfor %}</tbody>
+        </table></div>
+      </details>
+      {%- endfor %}
+      {%- endif %}
+
+      {%- if v.gen %}
+      {%- for pair in v.gen %}{%- assign key = pair[0] -%}{%- assign spec = pair[1] -%}
+      <details{% if forloop.first %} open{% endif %}><summary>{{ spec.label }}{% if spec.adjustable %} — adjustable{% else %} — fixed at implant{% endif %}</summary>
+        <div class="decision-table-wrap"><table class="sv-settings">
+          <thead><tr><th>cmH₂O</th><th>mmH₂O</th><th>mmHg</th></tr></thead>
+          <tbody>
+          {%- if spec.options -%}
+            {%- for o in spec.options %}<tr><td><b>{% if key == "grav" and o == 0 %}0 (none){% else %}{{ o }}{% endif %}</b></td><td>{{ o | times: 10 }}</td><td>{{ o | times: 10 | times: MMHG | round: 1 }}</td></tr>{% endfor -%}
+          {%- else -%}
+            {%- assign stepsz = 1 -%}{%- if spec.max > 20 -%}{%- assign stepsz = 4 -%}{%- endif -%}
+            {%- assign nsteps = spec.max | minus: spec.min | divided_by: stepsz -%}
+            {%- for i in (0..nsteps) %}{%- assign o = i | times: stepsz | plus: spec.min -%}<tr><td><b>{{ o }}</b></td><td>{{ o | times: 10 }}</td><td>{{ o | times: 10 | times: MMHG | round: 1 }}</td></tr>{% endfor -%}
+          {%- endif -%}
+          </tbody>
+        </table></div>
+        {%- if spec.max > 20 %}<p class="sv-small">Continuously adjustable; every 4 cmH₂O shown (the dial's marked increments).</p>{% endif %}
+      </details>
+      {%- endfor %}
+      {%- if v.gen.grav and v.gen.dp %}<p class="sv-small"><b>Opening pressure:</b> lying = DP unit · upright = DP unit + gravitational unit. Use the <a href="{{ '/shunts/converter/' | relative_url }}#m=valve&s={{ v.id }}&t=all&po=upright">converter</a> for any combination.</p>{% endif %}
+      {%- if v.gen.high %}<p class="sv-small"><b>Opening pressure:</b> lying = low-pressure chamber · upright = high-pressure chamber.</p>{% endif %}
+      {%- endif %}
+
+      {%- if v.recalls %}{% for r in v.recalls %}<div class="sv-recall">⚠️ {{ r }}</div>{% endfor %}{% endif %}
+      {%- if v.pearls %}<details open><summary>Practical points from the manufacturer</summary><ul>{% for p in v.pearls %}<li>{{ p }}</li>{% endfor %}</ul></details>{% endif %}
+      {%- if v.sources %}<ul class="sv-sources">{% for s in v.sources %}<li><a href="{{ s.u }}" target="_blank" rel="noopener">{{ s.t }}</a></li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+<script>
+(function () {
+  var q = document.getElementById('sv-q'), chips = document.querySelectorAll('.sv-chip'), kind = '';
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.sv-card'));
+  function apply() {
+    var t = (q.value || '').toLowerCase().trim();
+    cards.forEach(function (c) {
+      var ok = (!kind || c.dataset.kind === kind) && (!t || c.dataset.text.indexOf(t) >= 0);
+      c.hidden = !ok;
+    });
+  }
+  q.addEventListener('input', apply);
+  chips.forEach(function (b) { b.addEventListener('click', function () {
+    kind = b.dataset.kind; chips.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); apply();
+  }); });
+})();
+</script>

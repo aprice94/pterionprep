@@ -1,0 +1,64 @@
+---
+permalink: /shunts/xray-id/
+title: "Identify a Shunt Valve by X-ray"
+description: "Radiographic gallery of CSF shunt valves — Codman Hakim, CERTAS Plus, Strata, Polaris, Sophy SM8, proGAV, Delta, Integra DP, Spitz-Holter — with the features that tell them apart."
+category: "Shunts"
+tags: ["shunt", "valve", "x-ray", "radiograph", "identification", "skull film", "shunt series"]
+---
+<h1>Identify a Shunt Valve by X-ray</h1>
+
+<div class="tool-hero compact">
+  <div>
+    <span class="eyebrow">Shunts · X-ray identification</span>
+    <h2>What is this valve — and how do I read its setting?</h2>
+    <p>Start with the overall shape and what is metallic. Then use the valve-specific cue to read the setting. Click any image to enlarge. Every image is openly licensed (CC BY 4.0) and credited; where no open image exists, the manufacturer's own X-ray guide is linked.</p>
+  </div>
+  <div class="tool-stat-grid">
+    <a href="{{ '/shunts/valves/' | relative_url }}"><b>🗂️ Valve library</b><span>Settings, pressures, MRI rules</span></a>
+    <a href="{{ '/shunts/converter/' | relative_url }}"><b>🔁 Converter</b><span>Equivalent settings across valves</span></a>
+  </div>
+</div>
+
+<h2 id="first-look">First-look sorting</h2>
+<div class="callout-grid">
+  <div><b>Round titanium disc with a rotor or dial</b><br>Miethke adjustable valves — proGAV / proGAV 2.0 (four rotor magnets in pairs), M.blue (rim of coding holes with a triangular pointer), proSA.</div>
+  <div><b>Two square magnets in a faint round body + arrow connectors</b><br>Sophysa — Polaris (5 positions, magnetic lock) or Sophy SM8 (8 positions). Radiopaque dots left of the inlet give the pressure range.</div>
+  <div><b>Small ring (cam) with a dot</b><br>Codman HAKIM programmable — read the marker against the right-hand-side marker; 70 / 120 / 170 sit on the central cross.</div>
+  <div><b>Short bright bars around a small rotor</b><br>Codman CERTAS Plus — the setting is the sector holding the magnet with the tantalum ball.</div>
+  <div><b>A single dense magnet, valve body barely visible</b><br>Medtronic Strata family (Strata II / NSC); StrataMR II adds an extra tantalum marker.</div>
+  <div><b>Almost nothing — only arrows or dots</b><br>Non-metallic Medtronic Delta or PS Medical CSF-Flow Control valve: read the radiopaque arrow / dot code.</div>
+</div>
+
+<h2 id="gallery">Gallery</h2>
+<div class="sv-gallery">
+{%- for v in site.data.shunt_valves -%}{%- if v.xray.img %}
+  <div class="sv-gal">
+    <img src="{{ '/figures/shunts/' | append: v.xray.img | relative_url }}" alt="Radiograph of a {{ v.full_name | escape }}" loading="lazy">
+    <b><a href="{{ '/shunts/valves/' | relative_url }}#{{ v.id }}">{{ v.name }}</a></b>
+    <span class="sv-muted">{{ v.maker }} · {{ v.status }}</span>
+    <ul>{% for f in v.xray.features %}<li>{{ f }}</li>{% endfor %}</ul>
+    <span class="sv-xray-cap">{%- include shunt-credit.html key=v.xray.credit -%}</span>
+  </div>
+{%- endif -%}{%- endfor %}
+</div>
+
+<h2 id="no-open-image">Valves without an openly licensed radiograph (yet)</h2>
+<p class="sv-small">These valves are described from the manufacturer's radiographic guidance; the link opens the manufacturer's own X-ray illustration.</p>
+<div class="decision-table-wrap"><table class="sv-table">
+  <thead><tr><th>Valve</th><th>X-ray features</th><th>Manufacturer X-ray guide</th></tr></thead>
+  <tbody>
+  {%- for v in site.data.shunt_valves -%}{%- unless v.xray.img %}
+    <tr><td><a href="{{ '/shunts/valves/' | relative_url }}#{{ v.id }}"><b>{{ v.name }}</b></a><br><span class="sv-muted">{{ v.maker }}</span></td>
+      <td>{% if v.xray.features %}<ul style="margin:0;padding-left:1.1em">{% for f in v.xray.features %}<li>{{ f }}</li>{% endfor %}</ul>{% else %}—{% endif %}</td>
+      <td>{% if v.xray.ext %}<a href="{{ v.xray.ext.u }}" target="_blank" rel="noopener">Open ↗</a>{% else %}—{% endif %}</td></tr>
+  {%- endunless -%}{%- endfor %}
+  </tbody>
+</table></div>
+
+<h2 id="reading-tips">Film technique</h2>
+<ul>
+  <li>Shoot <strong>perpendicular to the valve</strong>, with the non-implanted side of the head on the plate; position the film relative to the valve, not the patient's anatomy (Integra Hakim guide).</li>
+  <li>Check orientation markers before reading a dial — a mirror-image read gives the wrong setting (Hakim right-hand-side marker; Miethke valve-marking recess; Sophysa range dots left of the inlet).</li>
+  <li>Get a baseline film after implantation. After every MRI, confirm the setting of MRI-sensitive valves — Codman HAKIM (X-ray or programmer), Strata / Strata NSC (Medtronic tools or X-ray) and Sophy SM8 (adjustment kit or X-ray).</li>
+  <li>Compare with the patient's own baseline films — an unknown outside valve should be identified before anyone tries to adjust it.</li>
+</ul>

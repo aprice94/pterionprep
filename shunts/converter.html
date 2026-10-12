@@ -1,0 +1,95 @@
+---
+permalink: /shunts/converter/
+title: "Shunt Valve Pressure Converter"
+description: "Convert any shunt valve setting to mmH2O, cmH2O and mmHg, and find the closest equivalent setting on every other valve — lying or upright, with add-on gravitational units."
+category: "Shunts"
+tags: ["shunt", "valve", "converter", "programmable", "hydrocephalus", "mmH2O", "mmHg"]
+---
+
+<h1>Shunt Valve Pressure Converter</h1>
+
+<div class="tool-hero compact">
+  <div>
+    <span class="eyebrow">Shunts · Converter</span>
+    <h2>Valve setting → pressure → the equivalent setting on any other valve</h2>
+    <p>Pick a valve and setting (or type a pressure). The converter shows the opening pressure in mmH₂O, cmH₂O, mmHg and kPa, then finds the closest setting on every other valve — for the patient lying or upright, including add-on gravitational units.</p>
+  </div>
+  <div class="tool-stat-grid">
+    <a href="{{ '/shunts/' | relative_url }}"><b>📘 How valves work</b><span>Physics, valve types, siphon &amp; gravity devices</span></a>
+    <a href="{{ '/shunts/valves/' | relative_url }}"><b>🗂️ Valve library</b><span>Every setting table, MRI rule and X-ray</span></a>
+    <a href="{{ '/shunts/xray-id/' | relative_url }}"><b>🩻 Identify by X-ray</b><span>Radiographic gallery</span></a>
+  </div>
+</div>
+
+<div class="sv-warn" role="note"><strong>Equivalent ≠ identical.</strong> Manufacturers measure at different flow rates (5, 10, 20 mL/h or 5–50 mL/h ranges), tolerances are ±10–35 mmH₂O, catheters add resistance, and siphon/gravity devices behave differently. Use the result as a <em>starting estimate</em> and confirm against the implant record and the device IFU.</div>
+
+<section class="sv-panel" aria-labelledby="sv-src-h">
+  <h2 id="sv-src-h">1 · Source</h2>
+  <div class="sv-seg" role="radiogroup" aria-label="Source type">
+    <label><input type="radio" name="sv-mode" value="valve" checked> A valve setting</label>
+    <label><input type="radio" name="sv-mode" value="pressure"> A pressure value</label>
+  </div>
+
+  <div id="sv-src-valve" class="sv-grid">
+    <label class="sv-field"><span>Valve</span><select id="sv-src"></select></label>
+    <label class="sv-field" id="sv-src-variant-wrap" hidden><span>Model / range</span><select id="sv-src-variant"></select></label>
+    <div id="sv-src-dims" class="sv-dims"></div>
+    <label class="sv-field" id="sv-src-addon-wrap"><span>Add-on gravitational unit in series</span><select id="sv-src-addon"></select></label>
+  </div>
+
+  <div id="sv-src-pressure" class="sv-grid" hidden>
+    <label class="sv-field"><span>Pressure</span><input id="sv-p-val" type="number" inputmode="decimal" step="any" value="100"></label>
+    <label class="sv-field"><span>Unit</span>
+      <select id="sv-p-unit"><option value="mmH2O">mmH₂O</option><option value="cmH2O">cmH₂O</option><option value="mmHg">mmHg</option><option value="kPa">kPa</option></select>
+    </label>
+  </div>
+
+  <div class="sv-seg" role="radiogroup" aria-label="Posture">
+    <span class="sv-seg-label">Compare with the patient</span>
+    <label><input type="radio" name="sv-posture" value="lying" checked> Lying (horizontal)</label>
+    <label><input type="radio" name="sv-posture" value="upright"> Upright</label>
+  </div>
+
+  <div id="sv-src-out" class="sv-result" aria-live="polite"></div>
+</section>
+
+<section class="sv-panel" aria-labelledby="sv-tgt-h">
+  <h2 id="sv-tgt-h">2 · Closest equivalent settings</h2>
+  <div class="sv-grid">
+    <label class="sv-field"><span>Compare against</span><select id="sv-tgt"></select></label>
+    <label class="sv-field" id="sv-tgt-variant-wrap" hidden><span>Model / range</span><select id="sv-tgt-variant"></select></label>
+    <div id="sv-tgt-dims" class="sv-dims"></div>
+    <label class="sv-field" id="sv-tgt-addon-wrap" hidden><span>Add-on gravitational unit in series</span><select id="sv-tgt-addon"></select></label>
+  </div>
+  <div class="decision-table-wrap"><table class="sv-table" id="sv-out">
+    <thead><tr><th>Valve</th><th>Closest setting</th><th>Pressure</th><th>Difference</th><th>Lying / upright</th><th>Settings just below · above the source</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="sv-small" id="sv-excluded"></p>
+  <p class="sv-small"><button type="button" class="sv-btn" id="sv-copy-link">🔗 Copy link to this conversion</button> <span id="sv-copy-msg"></span></p>
+</section>
+
+<section class="sv-panel" aria-labelledby="sv-unit-h">
+  <h2 id="sv-unit-h">Quick unit converter</h2>
+  <div class="sv-grid">
+    <label class="sv-field"><span>Value</span><input id="sv-u-val" type="number" inputmode="decimal" step="any" value="10"></label>
+    <label class="sv-field"><span>Unit</span>
+      <select id="sv-u-unit"><option value="mmHg">mmHg</option><option value="cmH2O">cmH₂O</option><option value="mmH2O">mmH₂O</option><option value="kPa">kPa</option></select>
+    </label>
+  </div>
+  <div id="sv-u-out" class="sv-units-row" aria-live="polite"></div>
+  <p class="sv-small">1 mmHg = 13.595 mmH₂O = 1.3595 cmH₂O · 1 cmH₂O = 0.7356 mmHg · 1 mmH₂O = 9.807 Pa. Miethke rounds to 1 mmHg ≈ 1.36 cmH₂O; Sophysa to 1 mmH₂O ≈ 0.074 mmHg.</p>
+</section>
+
+<h2 id="how-it-works">How the converter works</h2>
+<ul>
+  <li><strong>Lying</strong> comparisons use each valve's nominal opening pressure — the differential-pressure unit alone for gravitational valves.</li>
+  <li><strong>Upright</strong> comparisons use: the same pressure for valves with no posture device; the manufacturer's −50 cmH₂O hydrostatic chart for Medtronic Delta-chamber valves (Strata II, StrataMR II, Delta); <strong>DP + gravitational unit</strong> for Miethke gravitational valves and add-ons; <strong>+200 mmH₂O</strong> for Sophysa SiphonX; the high-pressure chamber for the DualSwitch valve.</li>
+  <li>Where a manufacturer publishes a range (e.g., Medtronic 5 → 50 mL/h), the <strong>midpoint</strong> is used as nominal — the same value Medtronic's StrataVarius displays — and the range is shown.</li>
+  <li>Flow-regulating valves (OSV II, M.flow), the flow-activated SiphonGuard, and valves without published per-setting pressures (Integra DP, Spitz-Holter, Integra GCA) are in the <a href="{{ '/shunts/valves/' | relative_url }}">valve library</a> but cannot be converted.</li>
+  <li>Ties go to the lower pressure. Every value traces to a manufacturer document or FDA record linked in the <a href="{{ '/shunts/valves/' | relative_url }}">valve library</a>.</li>
+</ul>
+
+<script type="application/json" id="shunt-data">{{ site.data.shunt_valves | jsonify }}</script>
+<script src="{{ '/assets/js/shunt-engine.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+<script src="{{ '/assets/js/shunt-converter.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

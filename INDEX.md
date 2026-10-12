@@ -27,6 +27,7 @@ title: Home
 <div class="cards">
   <a class="card approaches" href="#approaches"><span class="ic">🧭</span><span class="t">Operative Approaches</span><span class="d">Corridor-by-corridor technique chapters</span><span class="n">18 chapters</span></a>
   <a class="card aids" href="{{ site.cranipro_url }}"><span class="ic">📐</span><span class="t">CraniPro</span><span class="d">Interactive Mayfield pin placement and positioning simulator</span><span class="n">3D app</span></a>
+  <a class="card aids" href="shunts/"><span class="ic">🧪</span><span class="t">Shunt Valves</span><span class="d">How valves work, every setting in mmH₂O &amp; mmHg, cross-valve converter, X-ray ID</span><span class="n">converter + library</span></a>
   <a class="card aids" href="resources/approach-map.html"><span class="ic">🗺️</span><span class="t">Approach Map</span><span class="d">Linked corridors by region, target, and typical case use</span><span class="n">global map</span></a>
   <a class="card aids" href="cases/approaches/approach-selection.html"><span class="ic">💡</span><span class="t">Approach Selection</span><span class="d">Decision aids — which corridor for which lesion (comparison tables)</span><span class="n">decision tables</span></a>
   <a class="card cranial" href="#cranial"><span class="ic">🧠</span><span class="t">Cranial</span><span class="d">Vascular · tumor / skull base · trauma · CSF · functional</span><span class="n">50 guides</span></a>

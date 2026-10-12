@@ -11,6 +11,8 @@ tags:
 
 # Reference: CSF Shunt Systems, Types, and Valves
 
+> **🧪 New — [Shunt Valves tab](/shunts/):** every valve's settings in mmH₂O and mmHg, a cross-valve [pressure converter](/shunts/converter/), anti-siphon vs gravitational devices, MRI rules and [X-ray identification](/shunts/xray-id/).
+
 <!-- BEGIN CASE SNAPSHOT -->
 
 ## Case / Approach Snapshot

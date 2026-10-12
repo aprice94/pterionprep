@@ -1,0 +1,863 @@
+# Shunt valve reference data — single source for /shunts/valves/ (library) and /shunts/converter/.
+# All pressures in mmH2O unless a `gen` block says otherwise (gen blocks use cmH2O, as the manufacturer does).
+# Every value below is transcribed from the manufacturer document or FDA record listed in `sources`.
+#
+# kind:     programmable | fixed | addon | flow
+# posture:  none    — opening pressure does not change with posture
+#           delta   — Medtronic Delta-chamber siphon control (manufacturer tests at 0 and −50 cmH2O hydrostatic)
+#           gravity — gravitational unit: lying = differential-pressure unit only; upright = DP + gravitational unit
+#           switch  — Miethke DualSwitch: separate low-pressure (lying) and high-pressure (upright) chambers
+# settings: s = label, p = nominal lying pressure, lo/hi = range, up = nominal upright pressure, up_lo/up_hi = upright range,
+#           tol = ± tolerance, sys = manufacturer-measured system pressure with a catheter attached, note = free text
+# gen:      dims for continuously adjustable / per-implant Miethke valves (cmH2O):
+#           lying = dp ; upright = dp + grav
+
+- id: certas-plus
+  name: "CERTAS Plus"
+  full_name: "Codman CERTAS Plus Programmable Valve"
+  maker: "Integra (Codman)"
+  kind: programmable
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "8-setting programmable ball-in-cone valve; setting 8 is a flow-limiting 'virtual off' (≥400 mmH2O). Optional integrated SiphonGuard."
+  mechanism: "Ball-in-cone differential-pressure valve; magnetically adjustable rotating construct."
+  measured: "Average pressure across 5–50 mL/h (Integra performance chart), same in any gravitational orientation."
+  tolerance: "±20 mmH2O (settings 1–3) · ±25 (setting 4) · ±35 (settings 5–7)"
+  settings:
+    - {s: "1", p: 25, tol: 20}
+    - {s: "2", p: 50, tol: 20}
+    - {s: "3", p: 80, tol: 20}
+    - {s: "4", p: 110, tol: 25}
+    - {s: "5", p: 145, tol: 35}
+    - {s: "6", p: 180, tol: 35}
+    - {s: "7", p: 215, tol: 35}
+    - {s: "8", p: 400, min: true, note: "Virtual off — flow-limiting, minimum 400 mmH2O"}
+  mri: {level: check, label: "Resists unintended change at 3 T", after: "Confirm the setting after MRI (Integra)."}
+  xray:
+    img: "certas-plus-vach2025.jpg"
+    more: "certas-plus-rhomberg2024.jpg"
+    credit: vach
+    more_credit: rhomberg
+    features:
+      - "Elongated valve; bright rectangular magnets on a central rotating construct."
+      - "Setting = the overlay sector holding the magnet that has the tantalum ball beside it; a right-hand-side (RHS) marker orients the film."
+      - "Read with the Integra X-ray overlay tool aligned to the valve centerline and connectors."
+  adjust: "CERTAS Tool Kit (mechanical) or CERTAS Plus Electronic Tool Kit (not for the MR suite). Audible click per step; safety stop between settings 1 and 8. Keep tissue over the valve <10 mm."
+  pearls:
+    - "Made available after March 2015 (Integra)."
+    - "Setting 8 is not 'closed' — it limits flow with a ≥400 mmH2O minimum."
+  sources:
+    - {t: "Integra — CERTAS Plus Electronic Tool Kit Quick Reference Guide (1195787-2-EN, ©2024)", u: "https://app.sales.integralife.com/csf-management/programmable-valves/certas/certas-plus-electronic-tool-kit-quick-reference-guide.pdf"}
+
+- id: hakim-programmable
+  name: "Hakim Programmable (CHPV)"
+  full_name: "Codman HAKIM Programmable Valve"
+  maker: "Integra (Codman)"
+  kind: programmable
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "18 settings from 30 to 200 mmH2O in 10 mmH2O steps; programmed with a codified magnetic signal that drives an internal stepper motor. Available with SiphonGuard."
+  mechanism: "Synthetic-ruby ball-in-cone; flat stainless spring on a stepper-motor cam (titanium chassis)."
+  measured: "Nominal setting = valve opening pressure. Integra's L-P IFU also reports the measured system pressure with a 120 cm peritoneal catheter at 20 mL/h (shown as 'with catheter')."
+  tolerance: "±14 mmH2O (settings 30–120) · ±19 (130–200), regardless of orientation; ~10 mmH2O per step"
+  settings:
+    - {s: "30", p: 30, sys: 61, tol: 14}
+    - {s: "40", p: 40, sys: 68, tol: 14}
+    - {s: "50", p: 50, sys: 79, tol: 14}
+    - {s: "60", p: 60, sys: 86, tol: 14}
+    - {s: "70", p: 70, sys: 97, tol: 14}
+    - {s: "80", p: 80, sys: 106, tol: 14}
+    - {s: "90", p: 90, sys: 116, tol: 14}
+    - {s: "100", p: 100, sys: 124, tol: 14}
+    - {s: "110", p: 110, sys: 135, tol: 14}
+    - {s: "120", p: 120, sys: 144, tol: 14}
+    - {s: "130", p: 130, sys: 153, tol: 19}
+    - {s: "140", p: 140, sys: 162, tol: 19}
+    - {s: "150", p: 150, sys: 174, tol: 19}
+    - {s: "160", p: 160, sys: 184, tol: 19}
+    - {s: "170", p: 170, sys: 197, tol: 19}
+    - {s: "180", p: 180, sys: 208, tol: 19}
+    - {s: "190", p: 190, sys: 221, tol: 19}
+    - {s: "200", p: 200, sys: 229, tol: 19}
+  mri: {level: high, label: "Up to 3 T will not damage it but MAY CHANGE THE SETTING", after: "Always confirm the setting after MRI (X-ray or programmer). Repeated 3 T exposure may demagnetize the rotor and reduce programmability."}
+  xray:
+    img: "hakim-programmable-vach2025.jpg"
+    more: "hakim-programmable-rhomberg2024.jpg"
+    credit: vach
+    more_credit: rhomberg
+    features:
+      - "Small ring (cam) with an adjacent white dot — the radiopaque marker on the cam."
+      - "Read the marker position against the fixed right-hand-side marker; settings 70, 120 and 170 sit on the central cross."
+      - "Inverted valve: the white marker appears on the LEFT. Program 210 − desired (190/200 not reachable) after first setting 200."
+  adjust: "Codman HAKIM programmer (82-3190R) or VPV System. Keep ≤1 cm tissue over the mechanism (programmer reaches ~2 cm). Programmer is MR Unsafe."
+  pearls:
+    - "While becoming familiar, change by no more than ±40 mmH2O per 24 h and monitor for 24 h (Integra IFU)."
+    - "Magnets >80 gauss (speakers, household magnets) near the valve can change the setting."
+    - "X-ray the whole system after implantation, after every reprogramming, and after every MRI."
+  sources:
+    - {t: "Integra — HAKIM Programmable Valve L-P IFU (LCN-207384-001 Rev E, 11/2020)", u: "https://app.sales.integralife.com/csf-management/programmable-valves/chpv/ifus/hakim-programmable-valve-lumbo-peritoneal-l-p-ifu-rev-e-ins.pdf"}
+    - {t: "Integra — Codman Hakim Programmable Valve procedure guide (1750620-1-EN, 12/2020)", u: "https://app.sales.integralife.com/csf-management/programmable-valves/chpv/hakim-programmable-valve-procedure-guide-en.pdf"}
+
+- id: strata-ii
+  name: "Strata II (with Delta chamber)"
+  full_name: "Medtronic PS Medical Strata / Strata II Adjustable Pressure Valve"
+  maker: "Medtronic (PS Medical)"
+  kind: programmable
+  status: "Legacy (widely implanted)"
+  posture: delta
+  convertible: true
+  summary: "5 performance levels (0.5–2.5). Adjustable ball-in-cone mechanism in series with the Delta chamber siphon-control device."
+  mechanism: "Magnetically adjustable valve mechanism + normally closed Delta chamber (opens to positive ventricular pressure, stays closed to negative distal pressure)."
+  measured: "Median pressure at 5 → 50 mL/h. Lying = 0 cmH2O hydrostatic; upright = −50 cmH2O hydrostatic (Medtronic charts). Nominal = midpoint of the range."
+  tolerance: "Not stated on the Strata II chart (Strata NSC: ±15–25 mmH2O)"
+  settings:
+    - {s: "PL 0.5", p: 20, lo: 15, hi: 25, up: 40, up_lo: 30, up_hi: 50}
+    - {s: "PL 1.0", p: 45, lo: 35, hi: 55, up: 60, up_lo: 50, up_hi: 70}
+    - {s: "PL 1.5", p: 80, lo: 70, hi: 90, up: 95, up_lo: 85, up_hi: 105}
+    - {s: "PL 2.0", p: 115, lo: 105, hi: 125, up: 130, up_lo: 120, up_hi: 140}
+    - {s: "PL 2.5", p: 145, lo: 135, hi: 155, up: 157, up_lo: 147, up_hi: 167}
+  mri: {level: high, label: "3 T will not damage the valve but may change the setting", after: "Check the performance level immediately after MRI (Medtronic)."}
+  xray:
+    img: "medtronic-strata-rhomberg2024.jpg"
+    credit: rhomberg
+    features:
+      - "Bright, slightly irregular dense magnet inside a faint (mostly non-metallic) valve body."
+      - "Performance level can be confirmed by X-ray, though Medtronic designed the hand tools to verify without one."
+  adjust: "Strata hand tools (locator, indicator, adjustment — 45805) or StrataVarius electronic system (45806, numeric mmH2O readout)."
+  pearls:
+    - "StrataVarius shows a numeric value per level (e.g., PL 2.0 = 115 mmH2O, the chart midpoint)."
+  recalls:
+    - "FDA Class 2 recall Z-1121-2017 (Strata II & Strata NSC, all catalog numbers; 1/17/2017–6/2/2017): reports of discrepancies between the set performance level and the X-ray reading; IFU warning updated."
+  sources:
+    - {t: "Medtronic — Strata Family of Adjustable Valves brochure (LIT59585 Rev A, 11/2010)", u: "https://www.tjn-eng.com/images/prodocts/LIT59585_Strata_Brochure_RevA_LR.pdf"}
+    - {t: "Medtronic — CSF Management product catalog (UC201709479bEN, ©2020)", u: "https://storage.mtender.gov.md/get/62e32610-8126-48d5-b9e5-1492eacedf07-1756970341681"}
+    - {t: "FDA recall Z-1121-2017", u: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRes/res.cfm?id=152582"}
+
+- id: strata-nsc
+  name: "Strata NSC (no siphon control)"
+  full_name: "Medtronic PS Medical Strata NSC Adjustable Pressure Valve (incl. NSC LP)"
+  maker: "Medtronic (PS Medical)"
+  kind: programmable
+  status: "Legacy (widely implanted)"
+  posture: none
+  convertible: true
+  summary: "Same adjustable mechanism as Strata without the Delta chamber — so the upper levels run much higher. Also the lumboperitoneal (NSC LP) valve."
+  mechanism: "Magnetically adjustable valve mechanism, no siphon control."
+  measured: "Median pressure at 5 → 50 mL/h; nominal = midpoint."
+  tolerance: "PL 0.5: ±15 mmH2O (5 mL/h), ±25 (50 mL/h); PL 1.0–2.5: ±25 mmH2O"
+  settings:
+    - {s: "PL 0.5", p: 25, lo: 15, hi: 35}
+    - {s: "PL 1.0", p: 45, lo: 35, hi: 55}
+    - {s: "PL 1.5", p: 100, lo: 90, hi: 110}
+    - {s: "PL 2.0", p: 155, lo: 145, hi: 165}
+    - {s: "PL 2.5", p: 210, lo: 200, hi: 220}
+  mri: {level: high, label: "3 T will not damage the valve but may change the setting", after: "Check the performance level immediately after MRI."}
+  xray:
+    img: "strata-ii-nsc-giancardo2018.jpg"
+    credit: giancardo
+    features:
+      - "Dense magnet inside a faint valve body — radiographically similar to Strata II (the source dataset grouped them as 'Strata II – NSC')."
+  adjust: "Strata hand tools or StrataVarius; the NSC LP valve requires StrataVarius (45806) postoperatively."
+  pearls:
+    - "Same 'PL' number ≠ same pressure across Strata models: PL 2.5 is ~145 mmH2O on Strata II but ~210 on Strata NSC."
+  recalls:
+    - "FDA Class 2 recall Z-1121-2017 (see Strata II)."
+  sources:
+    - {t: "Medtronic — Strata Family brochure (LIT59585 Rev A, 11/2010)", u: "https://www.tjn-eng.com/images/prodocts/LIT59585_Strata_Brochure_RevA_LR.pdf"}
+    - {t: "FDA recall Z-1121-2017", u: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRes/res.cfm?id=152582"}
+
+- id: stratamr-ii
+  name: "StrataMR II"
+  full_name: "Medtronic StrataMR II Adjustable Pressure Valve"
+  maker: "Medtronic"
+  kind: programmable
+  status: "Current"
+  posture: delta
+  convertible: true
+  summary: "MRI-resistant successor to Strata: ball-and-cone valve in series with a normally closed siphon-control mechanism; 5 performance levels; regular and small sizes."
+  mechanism: "Ball-and-cone pressure valve + siphon-control diaphragm; 'MRI resistance walls' — the mechanism must be lifted then turned to change level."
+  measured: "Single labelled value per level on Medtronic's horizontal and vertical performance charts (10–50 mL/h)."
+  tolerance: "Not stated in the brochure"
+  settings:
+    - {s: "PL 0.5", p: 25, up: 37}
+    - {s: "PL 1.0", p: 45, up: 57}
+    - {s: "PL 1.5", p: 80, up: 92}
+    - {s: "PL 2.0", p: 115, up: 127}
+    - {s: "PL 2.5", p: 145, up: 157}
+  mri: {level: check, label: "Designed to withstand unintended change up to 3.0 T", after: "Medtronic still advises verifying the performance level after MRI. MR Conditional 1.5/3 T (max spatial gradient 1900 G/cm)."}
+  xray:
+    features:
+      - "An additional tantalum marker distinguishes StrataMR II from the first-generation StrataMR (FDA K212641)."
+    ext: {t: "No openly licensed radiograph yet — see Medtronic's StrataMR II materials", u: "https://www.medtronic.com/en-us/healthcare-professionals/products/neurological/hydrocephalus-therapy/shunts-valves/strata-mr-ii-adjustable-pressure-valve-shunt.html"}
+  adjust: "StrataMR four-tool set (locator, guider, indicator, adjustment — 45909SMR); tools are not position-dependent."
+  recalls:
+    - "Predecessor StrataMR (2016): FDA Class 1 recall Z-1702-2017 (2/22/2017–9/19/2017) — locator-tool misalignment could set the rotor wrong → higher opening pressure and underdrainage."
+  sources:
+    - {t: "Medtronic — StrataMR II brochure (2024)", u: "https://www.medtronic.com/content/dam/medtronic-wide/public/western-europe/products/spine-orthopedic/stratamr-ii-brochure.pdf"}
+    - {t: "FDA 510(k) K212641 — StrataMR II", u: "https://www.accessdata.fda.gov/cdrh_docs/pdf21/K212641.pdf"}
+    - {t: "FDA recall Z-1702-2017 (StrataMR)", u: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRes/res.cfm?id=153618"}
+
+- id: polaris
+  name: "Polaris (SPV)"
+  full_name: "Sophysa Polaris Adjustable Pressure Valve"
+  maker: "Sophysa"
+  kind: programmable
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "5 positions in four pressure ranges; patented magnetic lock (two opposed micro-magnets) so a one-directional field cannot unlock the rotor. SX models come pre-attached to SiphonX."
+  mechanism: "Ruby ball-in-cone loaded by a flat semicircular spring on a rotor; self-locking rotor."
+  measured: "Calibrated at 10 mL/h, valve alone (catheters add resistance). Standard SPV at 20 mL/h: 35 / 75 / 115 / 160 / 225."
+  tolerance: "−10 / +15 mmH2O"
+  variants:
+    - id: spv-140
+      label: "SPV-140 / SPVA-140 (10–140) — 0 range dots"
+      settings: [{s: "1", p: 10}, {s: "2", p: 40}, {s: "3", p: 80}, {s: "4", p: 110}, {s: "5", p: 140}]
+    - id: spv
+      label: "SPV / SPVA / SPVB standard (30–200) — 1 dot"
+      settings: [{s: "1", p: 30}, {s: "2", p: 70}, {s: "3", p: 110}, {s: "4", p: 150}, {s: "5", p: 200}]
+    - id: spv-300
+      label: "SPV-300 / SPVA-300 (50–300) — 2 dots"
+      settings: [{s: "1", p: 50}, {s: "2", p: 100}, {s: "3", p: 150}, {s: "4", p: 220}, {s: "5", p: 300}]
+    - id: spv-400
+      label: "SPV-400 / SPVA-400 (80–400) — 3 dots"
+      settings: [{s: "1", p: 80}, {s: "2", p: 150}, {s: "3", p: 230}, {s: "4", p: 330}, {s: "5", p: 400}]
+    - id: spv-sx
+      label: "SPV-SX — standard + pre-attached SiphonX (+200 upright)"
+      posture: gravity
+      settings: [{s: "1", p: 30, up: 230}, {s: "2", p: 70, up: 270}, {s: "3", p: 110, up: 310}, {s: "4", p: 150, up: 350}, {s: "5", p: 200, up: 400}]
+    - id: spv-140-sx
+      label: "SPV-140-SX — 10–140 + pre-attached SiphonX (+200 upright)"
+      posture: gravity
+      settings: [{s: "1", p: 10, up: 210}, {s: "2", p: 40, up: 240}, {s: "3", p: 80, up: 280}, {s: "4", p: 110, up: 310}, {s: "5", p: 140, up: 340}]
+  mri: {level: check, label: "MRI-stable (magnetic lock); MR Conditional 1.5/3 T", after: "Sophysa still recommends checking the setting before and after MRI; valve rotation during a 3 T exposure can change it."}
+  xray:
+    img: "polaris-spv-giancardo2018.jpg"
+    credit: giancardo
+    features:
+      - "Two square magnets in a round, mostly radiolucent body; arrow-shaped connectors show flow direction."
+      - "Titanium studs on the right side mark the 5 rotor positions; radiopaque range dots left of the inlet: 0 = 10–140, 1 = 30–200, 2 = 50–300, 3 = 80–400."
+  adjust: "Polaris Adjustment Kit (locator, compass, magnet) or Electronic Compass; clockwise raises, counter-clockwise lowers. The locator range must match the valve range."
+  sources:
+    - {t: "Sophysa — Polaris valve IFU (NT118 EN-FR Rev007, 2015)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/NT118_rev007_24_08_2015_EN_FR.pdf?dl=1"}
+    - {t: "Sophysa — MRI Guide (DCGu-HYD-01EN Rev000)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/DCGu-HYD-01ENRev000_MRI_Guide_HYD.pdf?dl=1"}
+    - {t: "FDA 510(k) K031097 — Polaris", u: "https://www.accessdata.fda.gov/cdrh_docs/pdf3/K031097.pdf"}
+
+- id: sophy-sm8
+  name: "Sophy Mini SM8"
+  full_name: "Sophysa Sophy Mini SM8 Adjustable Pressure Valve"
+  maker: "Sophysa"
+  kind: programmable
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "8 positions in four pressure ranges; transparent polysulfone body. No magnetic lock — the most MRI-sensitive current valve."
+  mechanism: "Ball-in-cone; magnetic rotor drives a flat spring; two safety stops."
+  measured: "Calibrated at 10 mL/h, valve alone."
+  tolerance: "−10 / +15 mmH2O"
+  variants:
+    - id: sm8-140
+      label: "SM8-140 (10–140) — 0 range dots"
+      settings: [{s: "1", p: 10}, {s: "2", p: 25}, {s: "3", p: 40}, {s: "4", p: 60}, {s: "5", p: 80}, {s: "6", p: 100}, {s: "7", p: 120}, {s: "8", p: 140}]
+    - id: sm8
+      label: "SM8 standard (30–200) — 1 dot"
+      settings: [{s: "1", p: 30}, {s: "2", p: 50}, {s: "3", p: 70}, {s: "4", p: 90}, {s: "5", p: 110}, {s: "6", p: 140}, {s: "7", p: 170}, {s: "8", p: 200}]
+    - id: sm8-300
+      label: "SM8-300 (50–300) — 2 dots"
+      settings: [{s: "1", p: 50}, {s: "2", p: 75}, {s: "3", p: 100}, {s: "4", p: 125}, {s: "5", p: 150}, {s: "6", p: 180}, {s: "7", p: 220}, {s: "8", p: 300}]
+    - id: sm8-400
+      label: "SM8-400 (80–400) — 3 dots"
+      settings: [{s: "1", p: 80}, {s: "2", p: 120}, {s: "3", p: 150}, {s: "4", p: 190}, {s: "5", p: 230}, {s: "6", p: 270}, {s: "7", p: 330}, {s: "8", p: 400}]
+  mri: {level: high, label: "MR Conditional 1.5/3 T but NO magnetic lock — high risk of accidental change", after: "Check the setting before AND after every MRI (adjustment kit or X-ray)."}
+  xray:
+    img: "sophy-sm8-vach2025.jpg"
+    more: "sophy-sm8-rhomberg2024.jpg"
+    credit: vach
+    more_credit: rhomberg
+    features:
+      - "Two square magnets inside a faint round outline; arrow-shaped connectors."
+      - "Radiopaque dots read the 8 positions directly; range dots left of the inlet (0–3) identify the range."
+  adjust: "Sophy Mini Adjustment Kit (locator with range ring, compass, magnet)."
+  pearls:
+    - "SM8-140 and SM8 can be paired with SiphonX (+200 mmH2O upright)."
+  sources:
+    - {t: "Sophysa — Sophy valve IFU (NT110_ML_SD Rev000, 2019-10)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/NT110_ML_SD_Rev000_2019-10-1.pdf?dl=1"}
+    - {t: "Sophysa — Sophy Mini SM8 brochure", u: "https://www.sophysa.com/wp-content/uploads/2023/05/Product-Brochure-SM8-EN.pdf?dl=1"}
+    - {t: "Sophysa — MRI Guide", u: "https://www.sophysa.com/wp-content/uploads/2023/05/DCGu-HYD-01ENRev000_MRI_Guide_HYD.pdf?dl=1"}
+
+- id: sophy-sm3
+  name: "Sophy SM3"
+  full_name: "Sophysa Sophy SM3 Adjustable Valve"
+  maker: "Sophysa"
+  kind: programmable
+  status: "Legacy"
+  posture: none
+  convertible: true
+  summary: "Three-position Sophy valve."
+  mechanism: "Ball-in-cone; magnetic rotor on a flat spring."
+  measured: "Calibrated at 10 mL/h."
+  tolerance: "−10 / +15 mmH2O"
+  settings: [{s: "1", p: 50}, {s: "2", p: 110}, {s: "3", p: 170}]
+  mri: {level: high, label: "No magnetic lock", after: "Check the setting before and after MRI."}
+  xray:
+    features: ["Studs on the right side mark the 3 rotor positions (Sophysa IFU)."]
+  sources:
+    - {t: "Sophysa — Sophy valve IFU (NT110_ML_SD Rev000, 2019-10)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/NT110_ML_SD_Rev000_2019-10-1.pdf?dl=1"}
+
+- id: progav-2
+  name: "proGAV 2.0"
+  full_name: "Miethke proGAV 2.0 (B. Braun / Aesculap)"
+  maker: "Miethke"
+  kind: programmable
+  status: "Current"
+  posture: gravity
+  convertible: true
+  summary: "Adjustable differential-pressure unit (0–20 cmH2O) with an optional integrated SHUNTASSISTANT 2.0 gravitational unit (10–35 cmH2O). Lying = DP setting; upright = DP + gravitational unit."
+  mechanism: "Titanium; ball-cone DP unit with bow spring on a braked rotor + tantalum-ball gravitational unit."
+  measured: "Opening pressures in cmH2O; gravitational-unit values referenced to 5 mL/h (~1–2 cmH2O higher at 20 mL/h)."
+  tolerance: "Not stated in the IFU excerpt"
+  gen:
+    dp: {min: 0, max: 20, step: 1, adjustable: true, label: "Adjustable DP unit"}
+    grav: {options: [0, 10, 15, 20, 25, 30, 35], adjustable: false, label: "Gravitational unit (fixed at implant; 0 = none)"}
+  range_text: "DP 0–20 cmH2O in 1-cmH2O steps (factory preset 5) · gravitational unit none / 10 / 15 / 20 / 25 / 30 / 35 cmH2O"
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change", after: "Miethke: verification after MRI is not required."}
+  xray:
+    img: "progav-2-vach2025.jpg"
+    more: "progav-2-rhomberg2024.jpg"
+    credit: vach
+    more_credit: rhomberg
+    features:
+      - "Round titanium valve; four rotor magnets show as white dots in opposite pairs."
+      - "Two black burr holes mark the rotor's rear; the gap between the two front magnets (triangle apex) points to the setting."
+      - "A side recess marks orientation so the scale is not read mirror-image; the gravitational unit carries a coded pressure marking."
+  adjust: "proGAV 2.0 Compass (locate/read), Adjustment Tool, Checkmate, or M.blue plus instruments. Light pressure releases the rotor brake (click)."
+  pearls:
+    - "Change by ≤8 cmH2O per adjustment step — the rotor takes the short way (3 → 18 must go 3 → 11 → 18)."
+    - "Implant the gravitational unit parallel to the body axis (retroauricular is fine; height doesn't matter)."
+    - "Vibration (e.g., jogging) can transiently lower opening pressure by 25–35% (lab data)."
+  sources:
+    - {t: "Miethke — proGAV 2.0 IFU (TA015217 IFU_82 V04, 2021-12-02; not for US users)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/proGAV_2.0/IFU_82_DE_EN_FR_ES_PT_IT_V04_WEB.pdf"}
+    - {t: "B. Braun — proGAV 2.0 product brochure (PB_BBraun_82_EN V02, 2026)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/01_Produkte/01_Verstellbare_Ventile/proGAV2.0_proGAV/Downloads_proGAV2.0/PB_BBraun_82_EN_V02__2026_07-28_.pdf"}
+    - {t: "Miethke — MRI Safety Information (V23, 2024-09-10)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/CMKG-MRISafetyInfo_DE_EN_V23_WEB.pdf"}
+
+- id: progav
+  name: "proGAV (1st generation)"
+  full_name: "Miethke proGAV"
+  maker: "Miethke"
+  kind: programmable
+  status: "Legacy (superseded by proGAV 2.0)"
+  posture: gravity
+  convertible: true
+  summary: "The first adjustable gravitational valve: adjustable DP unit 0–20 cmH2O with an optional integrated SHUNTASSISTANT."
+  mechanism: "Titanium ball-cone DP unit on an adjustable rotor + tantalum-ball gravitational unit."
+  measured: "Opening pressures in cmH2O."
+  tolerance: "Not stated"
+  gen:
+    dp: {min: 0, max: 20, step: 1, adjustable: true, label: "Adjustable DP unit"}
+    grav: {options: [0, 10, 15, 20, 25, 30, 35], adjustable: false, label: "Gravitational unit (fixed at implant; 0 = none)"}
+  range_text: "DP 0–20 cmH2O · gravitational unit none / 10 / 15 / 20 / 25 / 30 / 35 cmH2O (20 and 25 are the standard levels)"
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change", after: "Miethke: verification after MRI is not required."}
+  xray:
+    img: "progav-1-rhomberg2024.jpg"
+    credit: rhomberg
+    features:
+      - "Round titanium valve with a central rotor; the rotor position is read against the scale (0–20 cmH2O)."
+  adjust: "proGAV Verification Tool, Adjustment Tool, Checkmate."
+  pearls:
+    - "Miethke starting levels: DP 5 cmH2O (NPH standard); gravitational unit 20 (children ≤5 y, adults >60 y) or 25 (children >5 y, adults ≤60 y); −5 if <1.60 m, +5 if >1.80 m; bedridden → no gravitational unit."
+  sources:
+    - {t: "Miethke — proGAV brochure", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/proGAV/csm_proGAV_brochure.pdf"}
+    - {t: "Miethke — MRI Safety Information (V23, 2024-09-10)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/CMKG-MRISafetyInfo_DE_EN_V23_WEB.pdf"}
+
+- id: mblue
+  name: "M.blue"
+  full_name: "Miethke M.blue Adjustable Gravitational Valve (B. Braun / Aesculap)"
+  maker: "Miethke"
+  kind: programmable
+  status: "Current"
+  posture: gravity
+  convertible: true
+  summary: "One titanium valve combining a FIXED differential-pressure unit (0, 5, 10 or 15 cmH2O) with an ADJUSTABLE gravitational unit (0–40 cmH2O). Lying = DP unit; upright = DP + gravitational setting. It is an integrated valve, not an add-on."
+  mechanism: "Fixed ball-cone DP unit + adjustable gravitational unit (tantalum weight, sapphire ball, braked rotor); Active-Lock against everyday magnets."
+  measured: "Opening pressures in cmH2O; intermediate body angles give graded values."
+  tolerance: "Not stated in the brochure"
+  gen:
+    dp: {options: [0, 5, 10, 15], adjustable: false, label: "Fixed DP unit (chosen at implant)"}
+    grav: {min: 0, max: 40, step: 1, adjustable: true, label: "Adjustable gravitational unit"}
+  range_text: "Fixed DP unit 0 / 5 / 10 / 15 cmH2O (FX800T–FX803T) · gravitational unit continuously adjustable 0–40 cmH2O"
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change; Active-Lock", after: "Miethke: no X-ray verification after MRI needed."}
+  xray:
+    features:
+      - "Round titanium valve; gravitational coding holes every 4 cmH2O (0–40) around the rim, with a triangular tip pointing at the set value and a non-adjustable sector between 40 and 0."
+      - "Coding burr holes at the outlet give the DP unit: none = 0, one = 5, two = 10, three = 15 cmH2O."
+    ext: {t: "No openly licensed radiograph yet — see Miethke's M.blue radiographic guide (brochure p. 19)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/M.blue/M.blue_Brochure_EN.pdf"}
+  adjust: "M.blue plus instruments: compass with floater (locate + read), adjustment ring (light pressure releases the rotor brake)."
+  pearls:
+    - "Miethke starting levels (DP 5 for all; upright total in brackets): <5 y grav 20 (25); ≥5 y 25 (30); adults 25 (30) [<1.60 m 20 (25); >1.80 m 30 (35)]; adults >65 y 20 (25) [<1.60 m 15 (20); >1.80 m 25 (30)]. Lower the gravitational unit for low mobility or high BMI."
+  sources:
+    - {t: "Miethke — M.blue & M.blue plus brochure (EN)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/M.blue/M.blue_Brochure_EN.pdf"}
+    - {t: "Miethke — MRI Safety Information (V23, 2024-09-10)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/CMKG-MRISafetyInfo_DE_EN_V23_WEB.pdf"}
+
+- id: mblue-plus
+  name: "M.blue plus"
+  full_name: "Miethke M.blue plus (M.blue + proGAV 2.0 adjustable DP unit)"
+  maker: "Miethke"
+  kind: programmable
+  status: "Current"
+  posture: gravity
+  convertible: true
+  summary: "Both units adjustable: proGAV 2.0 DP unit (0–20 cmH2O) + M.blue gravitational unit (0–40 cmH2O)."
+  mechanism: "Adjustable ball-cone DP unit + adjustable gravitational unit, both braked rotors."
+  measured: "Opening pressures in cmH2O."
+  tolerance: "Not stated"
+  gen:
+    dp: {min: 0, max: 20, step: 1, adjustable: true, label: "Adjustable DP unit"}
+    grav: {min: 0, max: 40, step: 1, adjustable: true, label: "Adjustable gravitational unit"}
+  range_text: "DP 0–20 cmH2O + gravitational 0–40 cmH2O (FX804T)"
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change", after: "Miethke: no verification after MRI needed."}
+  xray:
+    features: ["Two round titanium units in series: the proGAV 2.0-type DP rotor and the M.blue gravitational dial."]
+    ext: {t: "See Miethke M.blue brochure", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/M.blue/M.blue_Brochure_EN.pdf"}
+  adjust: "M.blue plus instruments adjust both units."
+  sources:
+    - {t: "Miethke — M.blue & M.blue plus brochure (EN)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/M.blue/M.blue_Brochure_EN.pdf"}
+
+- id: prosa
+  name: "proSA"
+  full_name: "Miethke proSA — programmable SHUNTASSISTANT"
+  maker: "Miethke"
+  kind: addon
+  status: "Current"
+  posture: gravity
+  convertible: true
+  addon: true
+  summary: "Add-on ADJUSTABLE gravitational unit (0–40 cmH2O) implanted in series below a differential-pressure valve. Open when lying; adds its setting when upright."
+  mechanism: "Tantalum weight + sapphire ball; bow-spring pretension set by a braked rotor."
+  measured: "cmH2O."
+  tolerance: "Not stated"
+  gen:
+    grav: {min: 0, max: 40, step: 1, adjustable: true, label: "Adjustable gravitational unit"}
+  range_text: "0–40 cmH2O (preset 20); Miethke recommends pairing with a 5 cmH2O DP unit"
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change", after: "Miethke: verification after MRI is not required."}
+  xray:
+    features: ["The rotor tip indicates the setting; a cut-out in the casing ring marks orientation."]
+    ext: {t: "See Miethke proSA IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/proSA/IFU_38_DE_EN_FR_ES_V09_WEB.pdf"}
+  adjust: "proSA Verification Tool + Adjustment Tool / Checkmate (masterdisc to check the tool)."
+  sources:
+    - {t: "Miethke — proSA IFU (IFU_38 V09)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/proSA/IFU_38_DE_EN_FR_ES_V09_WEB.pdf"}
+
+- id: hakim-precision
+  name: "Hakim Precision (fixed)"
+  full_name: "Codman HAKIM Precision Fixed Pressure Valve"
+  maker: "Integra (Codman)"
+  kind: fixed
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "Fixed ball-in-cone valve in five pressure ranges; cylindrical, in-line, right-angle and micro housings; optional SiphonGuard, Rickham reservoir, Bactiseal catheters."
+  mechanism: "Ruby ball-in-cone with fixed spring."
+  measured: "Operating pressure printed on the FDA device label."
+  tolerance: "±10 mmH2O"
+  settings:
+    - {s: "Very Low", p: 10, tol: 10}
+    - {s: "Low", p: 40, tol: 10}
+    - {s: "Medium Low", p: 70, tol: 10}
+    - {s: "Medium High", p: 100, tol: 10}
+    - {s: "High", p: 130, tol: 10}
+  mri: {level: none, label: "Fixed valve — no setting to change", after: "No setting check needed."}
+  xray:
+    img: "hakim-precision-fixed-rhomberg2024.jpg"
+    credit: rhomberg
+    features: ["Small metallic ball-in-cone housing; no adjustable cam or rotor."]
+  pearls:
+    - "Some newer labels read only 'Medium Range' without a number — check the package label or implant record."
+  sources:
+    - {t: "FDA GUDID / openFDA device labels — CODMAN HAKIM Precision Fixed Pressure Valve", u: "https://api.fda.gov/device/udi.json?search=device_description:%22Precision+Fixed+Pressure+Valve%22&limit=100"}
+
+- id: delta
+  name: "Delta valve"
+  full_name: "Medtronic PS Medical Delta Valve"
+  maker: "Medtronic (PS Medical)"
+  kind: fixed
+  status: "Current"
+  posture: delta
+  convertible: true
+  summary: "Fixed performance-level membrane valve with an integral Delta chamber; regular, small and neonatal sizes. Non-metallic."
+  mechanism: "Membrane valve (polypropylene + silicone) + normally closed Delta chamber ('hydrodynamic leverage')."
+  measured: "Median pressure at 5 → 50 mL/h; lying = 0, upright = −50 cmH2O hydrostatic. Nominal = midpoint."
+  tolerance: "Not stated"
+  settings:
+    - {s: "PL 0.5", p: 20, lo: 15, hi: 25, up: 40, up_lo: 30, up_hi: 50}
+    - {s: "PL 1.0", p: 45, lo: 35, hi: 55, up: 60, up_lo: 50, up_hi: 70}
+    - {s: "PL 1.5", p: 80, lo: 70, hi: 90, up: 95, up_lo: 85, up_hi: 105}
+    - {s: "PL 2.0", p: 115, lo: 105, hi: 125, up: 130, up_lo: 120, up_hi: 140}
+  mri: {level: none, label: "Non-metallic — no MRI/CT interference", after: "No setting check needed."}
+  xray:
+    img: "medtronic-delta-rhomberg2024.jpg"
+    credit: rhomberg
+    features:
+      - "Valve body is essentially radiolucent — look for the radiopaque arrow/dot code: PL 0.5 = bar + arrow, 1.0 = single arrow, 1.5 = dot + arrow, 2.0 = double arrow."
+  sources:
+    - {t: "Medtronic — CSF Management product catalog (UC201709479bEN, ©2020), p. 11", u: "https://storage.mtender.gov.md/get/62e32610-8126-48d5-b9e5-1492eacedf07-1756970341681"}
+
+- id: csf-flow-control
+  name: "CSF-Flow Control (PS Medical)"
+  full_name: "Medtronic PS Medical CSF-Flow Control Valves (contoured, burr hole, ultra small)"
+  maker: "Medtronic (PS Medical)"
+  kind: fixed
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "Classic fixed differential-pressure membrane valves in four ranges, identified by a dot code."
+  mechanism: "Membrane valve (polypropylene + silicone); non-metallic."
+  measured: "Median pressure at 5 → 50 mL/h; nominal = midpoint."
+  tolerance: "Not stated"
+  settings:
+    - {s: "Low-Low", p: 20, lo: 10, hi: 30}
+    - {s: "Low", p: 37.5, lo: 30, hi: 45}
+    - {s: "Medium", p: 95, lo: 85, hi: 105}
+    - {s: "High", p: 157.5, lo: 145, hi: 170}
+  mri: {level: none, label: "Non-metallic — no MRI/CT interference", after: "No setting check needed."}
+  xray:
+    features: ["Radiolucent body; radiopaque dot code: Low-Low none, Low 1 dot, Medium 2 dots, High 3 dots."]
+    ext: {t: "No openly licensed radiograph yet — see Medtronic catalog p. 14", u: "https://storage.mtender.gov.md/get/62e32610-8126-48d5-b9e5-1492eacedf07-1756970341681"}
+  sources:
+    - {t: "Medtronic — CSF Management product catalog (UC201709479bEN, ©2020), p. 14", u: "https://storage.mtender.gov.md/get/62e32610-8126-48d5-b9e5-1492eacedf07-1756970341681"}
+
+- id: sophy-sm1
+  name: "Sophy Mini SM1"
+  full_name: "Sophysa Sophy Mini SM1 Monopressure Valve"
+  maker: "Sophysa"
+  kind: fixed
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "Low-profile fixed ball-in-cone valve in three pressures; A = antechamber, B = burr-hole reservoir."
+  mechanism: "Ball-in-cone, fixed."
+  measured: "Sophysa labelled pressure."
+  tolerance: "Not stated in the brochure"
+  settings: [{s: "L (Low)", p: 50}, {s: "M (Medium)", p: 110}, {s: "H (High)", p: 170}]
+  mri: {level: none, label: "Monopressure — no setting to change (artifact ~9–12 mm)", after: "No setting check needed."}
+  xray:
+    features: ["Small low-profile valve; much smaller artifact than the adjustable Sophysa valves."]
+    ext: {t: "See Sophysa SM1 brochure", u: "https://www.sophysa.com/wp-content/uploads/2026/05/SM1-Brochure-2026.pdf?dl=1"}
+  sources:
+    - {t: "Sophysa — Sophy Mini SM1 brochure (2026)", u: "https://www.sophysa.com/wp-content/uploads/2026/05/SM1-Brochure-2026.pdf?dl=1"}
+
+- id: gav-2
+  name: "GAV 2.0"
+  full_name: "Miethke GAV 2.0 Gravitational Assisted Valve"
+  maker: "Miethke"
+  kind: fixed
+  status: "Current"
+  posture: gravity
+  convertible: true
+  summary: "Fixed ball-cone DP unit + fixed gravitational unit in one titanium valve; six lying/upright combinations."
+  mechanism: "Ball-cone (spring) unit + tantalum-ball gravitational unit."
+  measured: "cmH2O."
+  tolerance: "Not stated"
+  settings:
+    - {s: "5 / 20", p: 50, up: 200}
+    - {s: "5 / 25", p: 50, up: 250}
+    - {s: "5 / 30", p: 50, up: 300}
+    - {s: "5 / 35", p: 50, up: 350}
+    - {s: "10 / 25", p: 100, up: 250}
+    - {s: "10 / 30", p: 100, up: 300}
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Titanium valve; pressure-level coding visible on X-ray."]
+    ext: {t: "See Miethke GAV 2.0 IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/GAV_2.0/IFU_61_DE_EN_FR_ES_PT_IT_V04_PRINT.pdf"}
+  sources:
+    - {t: "Miethke — GAV 2.0 IFU (IFU_61 V04)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/GAV_2.0/IFU_61_DE_EN_FR_ES_PT_IT_V04_PRINT.pdf"}
+
+- id: gav
+  name: "GAV (classic)"
+  full_name: "Miethke GAV Gravitational Assisted Valve"
+  maker: "Miethke"
+  kind: fixed
+  status: "Legacy"
+  posture: gravity
+  convertible: true
+  summary: "Original gravitational assisted valve; six lying/upright combinations measured at 5 mL/h."
+  mechanism: "Ball-cone unit + tantalum-ball gravitational unit (titanium)."
+  measured: "Pressure drop at 5 mL/h (cmH2O)."
+  tolerance: "Not stated"
+  settings:
+    - {s: "5 / 30", p: 50, up: 300}
+    - {s: "5 / 35", p: 50, up: 350}
+    - {s: "5 / 40", p: 50, up: 400}
+    - {s: "10 / 30", p: 100, up: 300}
+    - {s: "10 / 40", p: 100, up: 400}
+    - {s: "10 / 50", p: 100, up: 500}
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Titanium valve with an X-ray pressure code (e.g., the IFU's example image is the 10/40 cmH2O model)."]
+    ext: {t: "See Miethke GAV IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/GAV/IFU_60_DE_EN_FR_ES_IT_V13_WEB.pdf"}
+  pearls:
+    - "Choose the upright pressure from the height difference between the third ventricle and the diaphragm (Miethke)."
+  sources:
+    - {t: "Miethke — GAV IFU (IFU_60 V13)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/GAV/IFU_60_DE_EN_FR_ES_IT_V13_WEB.pdf"}
+
+- id: paedigav
+  name: "paediGAV"
+  full_name: "Miethke paediGAV"
+  maker: "Miethke"
+  kind: fixed
+  status: "Current"
+  posture: gravity
+  convertible: true
+  summary: "Pediatric gravitational assisted valve; six lying/upright combinations (coding rings)."
+  mechanism: "Ball-cone (spiral spring) unit + gravitational unit."
+  measured: "cmH2O."
+  tolerance: "Not stated"
+  settings:
+    - {s: "4 / 14", p: 40, up: 140}
+    - {s: "4 / 19", p: 40, up: 190}
+    - {s: "4 / 24", p: 40, up: 240}
+    - {s: "9 / 19", p: 90, up: 190}
+    - {s: "9 / 24", p: 90, up: 240}
+    - {s: "9 / 29", p: 90, up: 290}
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Coding rings identify the pressure combination."]
+    ext: {t: "See Miethke paediGAV IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/paediGAV/GBA_40_16_1120_FG.pdf"}
+  pearls:
+    - "Miethke recommendations: <6 months 4/24; 6 months–5 years 9/24; >5 years 9/29 cmH2O."
+  sources:
+    - {t: "Miethke — paediGAV IFU (GBA_40_16_1120)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/paediGAV/GBA_40_16_1120_FG.pdf"}
+
+- id: dsv
+  name: "DualSwitch Valve (DSV)"
+  full_name: "Miethke DUALSWITCH VALVE"
+  maker: "Miethke"
+  kind: fixed
+  status: "Current"
+  posture: switch
+  convertible: true
+  summary: "Two parallel chambers — a low-pressure chamber active lying and a high-pressure chamber active upright — switched by a tantalum ball."
+  mechanism: "Titanium; two spring-loaded discs on silicone membranes; tantalum-ball switch."
+  measured: "Horizontal ratings at 20 mL/h (cmH2O)."
+  tolerance: "Not stated"
+  gen:
+    dp: {options: [5, 10, 13, 16], adjustable: false, label: "Low-pressure (lying) chamber"}
+    high: {options: [30, 40, 50], adjustable: false, label: "High-pressure (upright) chamber"}
+  range_text: "Lying 5 / 10 (standard) / 13 / 16 cmH2O · upright 30 / 40 / 50 cmH2O"
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Low-pressure code sits next to the ball switch (white dot); the high-pressure code is farther from it."]
+    ext: {t: "See Miethke DSV IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/DSV/IFU_01_DE_EN_FR_ES_IT_V10_WEB.pdf"}
+  pearls:
+    - "Pick the high side just above (Monro-to-diaphragm distance − 5 cm) so standing IVP stays −5 to +5 cmH2O (Miethke)."
+  sources:
+    - {t: "Miethke — DUALSWITCH VALVE IFU (IFU_01 V10)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/DSV/IFU_01_DE_EN_FR_ES_IT_V10_WEB.pdf"}
+
+- id: mininav
+  name: "miniNAV"
+  full_name: "Miethke miniNAV"
+  maker: "Miethke"
+  kind: fixed
+  status: "Current"
+  posture: none
+  convertible: true
+  summary: "Smallest Miethke differential-pressure valve (premature/newborn infants, bedridden patients); combine with a SHUNTASSISTANT/proSA for active patients."
+  mechanism: "Ball + spring in a slim titanium shell."
+  measured: "cmH2O."
+  tolerance: "Not stated"
+  settings: [{s: "0", p: 0}, {s: "5", p: 50}, {s: "10", p: 100}, {s: "15", p: 150}]
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Pressure coded by the valve-end shapes (e.g., concave proximal + convex distal = 5 cmH2O)."]
+    ext: {t: "See Miethke miniNAV brochure", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/miniNAV/miniNAV_Brochure_EN.pdf"}
+  sources:
+    - {t: "Miethke — miniNAV brochure (EN)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/miniNAV/miniNAV_Brochure_EN.pdf"}
+
+- id: integra-dp
+  name: "Integra DP"
+  full_name: "Integra DP Valve System"
+  maker: "Integra"
+  kind: fixed
+  status: "Legacy (many SKUs no longer in US distribution)"
+  posture: none
+  convertible: false
+  summary: "Fixed differential-pressure valve with two ruby ball-in-cone mechanisms in series (stainless steel housings); colour-coded pressure ranges; the very-low (blue band) model is for hygroma / extraventricular drainage."
+  mechanism: "Two ball-in-cone mechanisms in series."
+  measured: "—"
+  tolerance: "—"
+  not_convertible_reason: "No publicly accessible manufacturer document gives the numeric pressure for each colour band — check the implant record / package label."
+  mri: {level: none, label: "Fixed valve", after: "No setting check needed."}
+  xray:
+    img: "integra-dp-rhomberg2024.jpg"
+    credit: rhomberg
+    features: ["Two small metallic in-line housings (the paired ball-in-cone mechanisms)."]
+  sources:
+    - {t: "FDA 510(k) K152897 — Integra DP Valve Systems / Gravity Compensating Accessory", u: "https://www.accessdata.fda.gov/cdrh_docs/pdf15/K152897.pdf"}
+
+- id: spitz-holter
+  name: "Spitz-Holter"
+  full_name: "Spitz-Holter valve (historic, 1956)"
+  maker: "Holter (later Integra)"
+  kind: fixed
+  status: "Historic"
+  posture: none
+  convertible: false
+  summary: "Historic in-line slit valve still seen on films of long-shunted patients."
+  mechanism: "Silicone slit valves in a cylindrical housing with metal end fittings."
+  measured: "—"
+  tolerance: "—"
+  not_convertible_reason: "Historic device; no current manufacturer pressure documentation."
+  mri: {level: none, label: "Fixed valve", after: "No setting check needed."}
+  xray:
+    img: "spitz-holter-rhomberg2024.jpg"
+    credit: rhomberg_holter
+    features: ["Cylindrical in-line valve with metal end segments, often just below a burr-hole reservoir ring."]
+
+- id: sa-2
+  name: "SHUNTASSISTANT 2.0 (SA 2.0)"
+  full_name: "Miethke SHUNTASSISTANT 2.0"
+  maker: "Miethke"
+  kind: addon
+  status: "Current"
+  posture: gravity
+  convertible: true
+  addon: true
+  summary: "Add-on FIXED gravitational unit implanted in series with any conventional or adjustable DP valve. Open lying; adds its rating upright."
+  mechanism: "Titanium housing, heavy tantalum ball over a sapphire locking ball."
+  measured: "Referenced to 5 mL/h (~1–2 cmH2O higher at 20 mL/h)."
+  tolerance: "Not stated"
+  settings: [{s: "10", p: 0, up: 100}, {s: "15", p: 0, up: 150}, {s: "20", p: 0, up: 200}, {s: "25", p: 0, up: 250}, {s: "30", p: 0, up: 300}, {s: "35", p: 0, up: 350}]
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Small titanium cylinder; pressure level coded on X-ray."]
+    ext: {t: "See Miethke SA 2.0 IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/SA_2.0/IFU_34_DE_EN_FR_ES_PT_IT_V04_WEB.pdf"}
+  pearls:
+    - "Implant parallel to the body axis: chest wall in adults, behind the ear in children; abdomen/back for LP shunts."
+  sources:
+    - {t: "Miethke — SHUNTASSISTANT 2.0 IFU (IFU_34 V04)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/SA_2.0/IFU_34_DE_EN_FR_ES_PT_IT_V04_WEB.pdf"}
+
+- id: sa
+  name: "SHUNTASSISTANT / paediSHUNTASSISTANT"
+  full_name: "Miethke SHUNTASSISTANT (original) and paediSHUNTASSISTANT"
+  maker: "Miethke"
+  kind: addon
+  status: "Legacy"
+  posture: gravity
+  convertible: true
+  addon: true
+  summary: "Original add-on gravitational unit (15–35 cmH2O) and the smaller pediatric version (10 cmH2O)."
+  mechanism: "Titanium casing, weight ball, sealing ball."
+  measured: "Referenced to 5 mL/h (~1–2 cmH2O higher at 20 mL/h)."
+  tolerance: "Not stated"
+  settings: [{s: "paediSA 10", p: 0, up: 100}, {s: "15", p: 0, up: 150}, {s: "20", p: 0, up: 200}, {s: "25", p: 0, up: 250}, {s: "30", p: 0, up: 300}, {s: "35", p: 0, up: 350}]
+  mri: {level: none, label: "MR Conditional ≤3 T; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Ring-coded titanium cylinder; on a supine film the tantalum ball sits a little farther from its seat than on a standing film."]
+    ext: {t: "See Miethke SHUNTASSISTANT IFU", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/paediGAV/IFU_30_DE_EN_FR_ES_IT_V11_WEB_120122.pdf"}
+  pearls:
+    - "Miethke sizing method: (DP valve + SA) ≈ (diaphragm → foramen of Monro distance) − 5 cm. Example: 42 cm, DP 13 → choose SA 25 → standing IVP ≈ −4 cmH2O."
+  sources:
+    - {t: "Miethke — paediSHUNTASSISTANT / SHUNTASSISTANT IFU (IFU_30 V11)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/nicht_verstellbare_Ventile/paediGAV/IFU_30_DE_EN_FR_ES_IT_V11_WEB_120122.pdf"}
+
+- id: siphonx
+  name: "SiphonX"
+  full_name: "Sophysa SiphonX gravitational anti-siphon device (SX-200)"
+  maker: "Sophysa"
+  kind: addon
+  status: "Current"
+  posture: gravity
+  convertible: true
+  addon: true
+  summary: "Add-on gravitational anti-siphon device placed downstream of a valve: +200 mmH2O fully upright, 0 lying, angle-dependent in between; not affected by implant height."
+  mechanism: "Ball-in-cone; tantalum weight ball presses on a ruby ball."
+  measured: "Same curve for 5–50 mL/h."
+  tolerance: "Not stated"
+  settings: [{s: "SX-200", p: 0, up: 200}]
+  mri: {level: none, label: "MR Conditional with Polaris/Sophy systems; fixed", after: "No setting check needed."}
+  xray:
+    features: ["Small in-line device distal to the valve (pre-attached on Polaris -SX models)."]
+    ext: {t: "See Sophysa SiphonX brochure", u: "https://www.sophysa.com/wp-content/uploads/2023/05/Product-Brochure-SiphonX-EN.pdf?dl=1"}
+  sources:
+    - {t: "Sophysa — SiphonX brochure (DC-SX(EN) Rev003, 11/2024)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/Product-Brochure-SiphonX-EN.pdf?dl=1"}
+    - {t: "Sophysa — Polaris valve IFU (NT118)", u: "https://www.sophysa.com/wp-content/uploads/2023/05/NT118_rev007_24_08_2015_EN_FR.pdf?dl=1"}
+
+- id: siphonguard
+  name: "SiphonGuard"
+  full_name: "Codman SIPHONGUARD Anti-Siphon Device"
+  maker: "Integra (Codman)"
+  kind: addon
+  status: "Current"
+  posture: none
+  convertible: false
+  summary: "FLOW-activated (not posture-activated) anti-siphon device integrated into some Hakim, Hakim Precision and CERTAS Plus valves."
+  mechanism: "Dual pathway: a surge in flow closes the central ruby ball-and-cone, forcing all CSF through a long spiral secondary path (resistance 1 cmH2O per mL/h); it reopens when flow falls and never fully stops."
+  measured: "—"
+  tolerance: "—"
+  not_convertible_reason: "Adds flow-dependent resistance, not a fixed upright pressure. Does not activate at low CSF flow."
+  mri: {level: none, label: "No setting", after: "—"}
+  xray:
+    features: ["Rigid in-line chamber distal to the valve mechanism."]
+  pearls:
+    - "Prime slowly (~0.5 mL/min) — fast priming can trigger the closed (secondary-path) state."
+    - "Any orientation and body location distal to the valve mechanism is allowed."
+  sources:
+    - {t: "Integra — HAKIM Programmable Valve L-P IFU (Rev E, 11/2020)", u: "https://app.sales.integralife.com/csf-management/programmable-valves/chpv/ifus/hakim-programmable-valve-lumbo-peritoneal-l-p-ifu-rev-e-ins.pdf"}
+
+- id: gca
+  name: "Gravity Compensating Accessory"
+  full_name: "Integra Gravity Compensating Accessory (GCA)"
+  maker: "Integra"
+  kind: addon
+  status: "Legacy"
+  posture: gravity
+  convertible: false
+  summary: "Posture-activated add-on placed anywhere along the distal tubing: a ruby ball held on its seat (when vertical) by two to four stainless steel balls; each ball adds resistance upright, minimal resistance lying."
+  mechanism: "Stainless steel housing in silicone; 2–4 steel balls load a ruby ball."
+  measured: "—"
+  tolerance: "—"
+  not_convertible_reason: "The FDA summary gives the mechanism but not the added pressure per ball count."
+  mri: {level: none, label: "No setting", after: "—"}
+  xray:
+    features: ["Small cylinder on the distal tubing containing a column of 2–4 metal balls."]
+  sources:
+    - {t: "FDA 510(k) K152897", u: "https://www.accessdata.fda.gov/cdrh_docs/pdf15/K152897.pdf"}
+
+- id: osv-ii
+  name: "OSV II (flow-regulating)"
+  full_name: "Integra OSV II Valve System (and Flow Regulating Valve Low Flow)"
+  maker: "Integra"
+  kind: flow
+  status: "Current"
+  posture: none
+  convertible: false
+  summary: "Flow-regulating valve designed to drain close to CSF secretion (18–30 mL/h) rather than at a set opening pressure."
+  mechanism: "Variable-resistance pin-and-seat flow regulator; three stages; mechanism has no metal."
+  measured: "Stage I: opens at ~5 mL/h (ΔP 30–80 mmH2O), stays in stage I to 18 mL/h (ΔP 40–120). Stage II: holds 18–30 mL/h over ΔP 120–300. Stage III: pressure-relief mode for abrupt ICP rise."
+  tolerance: "—"
+  not_convertible_reason: "Regulates flow, not opening pressure — no setting maps to a single pressure."
+  mri: {level: none, label: "MR Conditional ≤3 T (max gradient 3500 G/cm); flow characteristics unaffected", after: "No setting."}
+  xray:
+    features: ["Low Flow model has a black radiopaque flow-direction arrow that distinguishes it from OSV II."]
+  pearls:
+    - "OSV II for drainage ≈ CSF secretion (18–30 mL/h); Low Flow model for 8–17 mL/h."
+  sources:
+    - {t: "Integra — OSV II Valve System IFU (BL515010 Rev A, 2022-10)", u: "https://app.sales.integralife.com/csf-management/flow-regulation-valves/ifus/integra-osvii-valve-unit-valve-system-low-pro-ifu-rev-a.pdf"}
+
+- id: mflow
+  name: "M.flow"
+  full_name: "Miethke M.flow adjustable flow-reducing unit"
+  maker: "Miethke"
+  kind: flow
+  status: "Current"
+  posture: none
+  convertible: false
+  summary: "Adjustable FLOW-RESISTANCE unit with a full shunt switch-off range, used together with M.blue."
+  mechanism: "Rotor aperture sets the effective length of a circular flow channel (= resistance); a channel interruption gives 'shunt off'."
+  measured: "—"
+  tolerance: "—"
+  not_convertible_reason: "Sets flow resistance, not an opening pressure."
+  mri: {level: ok, label: "MR Conditional ≤3 T — no setting change", after: "Miethke: verification after MRI is not required."}
+  xray:
+    features: ["Titanium unit with a rotor; combined with an M.blue."]
+  sources:
+    - {t: "Miethke — M.flow IFU (IFU_18 V2.1)", u: "https://www.miethke.com/fileadmin/user_upload/user_upload/Downloads/Verstellbare_Ventile/M.flow/IFU_18_DE_EN_FR_ES_PT_IT_NL_V2.1_WEB.pdf"}
